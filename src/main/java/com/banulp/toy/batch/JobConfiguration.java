@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 
+import javax.xml.stream.XMLInputFactory;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +72,16 @@ public class JobConfiguration {
         unmarshaller.setConverters(converter);
 
         StaxEventItemReader<Sstring> reader = new StaxEventItemReader<>();
-        reader.setResource(new ClassPathResource("sstring.xml"));
+
+//        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+//        xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+//        xmlInputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, false);
+//        reader.setXmlInputFactory(xmlInputFactory);
+
+        ClassPathResource classPathResource = new ClassPathResource("sstring.xml");
+
+
+        reader.setResource(classPathResource);
         reader.setFragmentRootElementName("sstring");
         reader.setUnmarshaller(unmarshaller);
 
