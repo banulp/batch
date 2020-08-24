@@ -8,13 +8,18 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.xml.StaxEventItemReader;
+import org.springframework.batch.item.xml.builder.StaxEventItemReaderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 
-import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.*;
+import javax.xml.stream.util.XMLEventAllocator;
+import javax.xml.transform.Source;
+import java.io.InputStream;
+import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,17 +70,24 @@ public class JobConfiguration {
         unmarshaller.setAliases(aliases);
         unmarshaller.setConverters(converter);
 
-        StaxEventItemReader<Map<String, Object>> reader = new StaxEventItemReader<>();
-//        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-//        xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, true);
-//        xmlInputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, true);
-//        reader.setXmlInputFactory(xmlInputFactory);
-
         ClassPathResource classPathResource = new ClassPathResource("sstring.xml");
 
-        reader.setResource(classPathResource);
-        reader.setFragmentRootElementName("sstring");
-        reader.setUnmarshaller(unmarshaller);
+        XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+        xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, true);
+        xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, true);
+
+        StaxEventItemReader<Map<String, Object>> reader = new StaxEventItemReaderBuilder<Map<String, Object>>()
+                .name("entitySupportReader")
+                .resource(classPathResource)
+                .addFragmentRootElements("sstring")
+                .unmarshaller(unmarshaller)
+                .xmlInputFactory(xmlInputFactory)
+                .build();
+
+//        StaxEventItemReader<Map<String, Object>> reader = new StaxEventItemReader<>();
+//        reader.setResource(classPathResource);
+//        reader.setFragmentRootElementName("sstring");
+//        reader.setUnmarshaller(unmarshaller);
 
         return reader;
     }

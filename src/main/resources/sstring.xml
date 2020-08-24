@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sstrings [
+<!ENTITY hellip "...">
+]>
 <sstrings>
     <sstring>
-        <firstName>John&lt;</firstName>
+        <firstName>Jo&hellip;hn&lt;</firstName>
     </sstring>
 </sstrings>

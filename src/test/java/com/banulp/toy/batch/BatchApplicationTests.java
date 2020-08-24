@@ -18,15 +18,12 @@ class BatchApplicationTests {
     @Test
     void replaceEntityTest() {
         XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-        // ??
-//        inputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
 
         // true 면 &hellip; 를 replace text ( event type 4 ) 로 인식
         // false 면 Entity Reference ( event type 9 ) 로 인식
 //        inputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, false);
-        inputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, true);
+//        inputFactory.setProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES, true);
 
-        System.out.println("IS_SUPPORTING_EXTERNAL_ENTITIES: " + inputFactory.getProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES));
         System.out.println("IS_REPLACING_ENTITY_REFERENCES: " + inputFactory.getProperty(XMLInputFactory.IS_REPLACING_ENTITY_REFERENCES));
         System.out.println("---------------------------");
 

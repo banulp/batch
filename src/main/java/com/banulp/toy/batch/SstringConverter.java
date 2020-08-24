@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class SstringConverter implements Converter {
 
     @Override
@@ -26,7 +27,13 @@ public class SstringConverter implements Converter {
     public Map<String, Object> unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
         Map<String, Object> map = new HashMap<>();
         reader.moveDown();
-        map.put("FirstName", reader.getValue());
+
+
+        String s = (String) reader.getValue();
+        log.info("FirstName : " + s);
+
+
+        map.put("FirstName", s);
         reader.moveUp();
         return map;
     }
