@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <sstrings>
     <sstring>
-        <id>1</id>
         <firstName>John&lt;</firstName>
-        <lastName>how you dare&lt;</lastName>
-        <birthdate>10-10-1988 19:43:23</birthdate>
     </sstring>
 </sstrings>

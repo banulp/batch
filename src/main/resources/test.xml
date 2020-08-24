@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<foo>
-    <bar>Some&nbsp;text &mdash; invalid!</bar>
-</foo>
+<!DOCTYPE foo [
+<!ENTITY hellip "hellip">
+]>
+<foo>banulp&hellip;is good.&lt;</foo>

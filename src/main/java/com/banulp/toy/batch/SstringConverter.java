@@ -7,11 +7,14 @@ import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SstringConverter implements Converter {
 
     @Override
     public boolean canConvert(Class type) {
-        return type.equals(Sstring.class);
+        return true;
     }
 
     @Override
@@ -20,30 +23,11 @@ public class SstringConverter implements Converter {
     }
 
     @Override
-    public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+    public Map<String, Object> unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+        Map<String, Object> map = new HashMap<>();
         reader.moveDown();
-        Sstring sstring = new Sstring();
-        sstring.setId(Long.valueOf(reader.getValue()));
-
+        map.put("FirstName", reader.getValue());
         reader.moveUp();
-        reader.moveDown();
-        System.out.println("--------------------------------------------------------1-");
-        String b = reader.getValue();
-        System.out.println(b);
-//        //String b = reader.getValue().replaceAll("(&hellip;)", "...");
-//        String b = reader.getValue().replaceAll("&", "...");
-//        System.out.println(b);
-        sstring.setFirstName(b);
-        System.out.println("--------------------------------------------------------2-");
-//        sstring.setFirstName(reader.getValue());
-
-        reader.moveUp();
-        reader.moveDown();
-        sstring.setLastName(reader.getValue());
-
-        reader.moveUp();
-        reader.moveDown();
-
-        return sstring;
+        return map;
     }
 }
